@@ -342,7 +342,8 @@ void Analysis::pushchains()
     bool match=false;
     i = 0;
     //Повторить операцию добавления выражение в массив выражений
-    //для последнего выражения текущей строки файла
+    //для последнего выражения текущей строки файл
+    //new text
     if (ch.find(stroka[stroka.length()-1]) != ch.end())
     {
         stroka.erase(stroka.length()-1,1);
