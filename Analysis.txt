@@ -1,4 +1,4 @@
-//
+//Ла ла ла
 void Analysis::pushchains()
 {
     int i=0,
@@ -146,5 +146,5 @@ void Analysis::pushchains()
     ch.clear();//Очистить память, выделенную под множество разделителей
     ch2.clear();//Очистить память, выделенную под множество разделителей
     std::string().swap(buff);//Очистить память, выделенную под строку buff
-    std::string().swap(stroka);//Очистить память, выделенную под строку stroka
+    std::string().swap(stroka);
 }
