@@ -17,10 +17,10 @@ struct {
    std::sort(s.begin(), s.end(), customLess);
 */
 
-/*bool Analysis::sortCondition(Words &w1,  Words &w2)
+bool Analysis:: sortCondition(Words w1,  Words w2)
 {
-    return w1.count < w2.count;
-}*/
+    return w1.count > w2.count;
+}
 void Analysis::pushwords()
 {
     int i=0,
@@ -585,8 +585,8 @@ void Analysis::pushchains_ds()
 }
 void Analysis::sort()
 {
-    //qSort(v.begin(), v.end(), this->sortCondition);
-
+    std::sort(v.begin(), v.end(), sortCondition);
+    /*
     int temp, // временная переменная для хранения значения элемента сортируемого массива
     item; // индекс предыдущего элемента
     for (int counter = 1; counter < v.size(); counter++)
@@ -601,7 +601,7 @@ void Analysis::sort()
             v[item] = w;
             item--;
         }
-    }
+    }*/
 }
 void Analysis::sort_ds()
 {

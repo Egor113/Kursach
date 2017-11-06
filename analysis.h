@@ -36,7 +36,7 @@ public:
     Analysis();
 
 private:
-    //bool sortCondition(const Words &w1, const Words &w2);
+    bool static sortCondition(Words w1, Words w2);
 };
 
 #endif // ANALYSIS_H
