@@ -7,6 +7,20 @@ Analysis::Analysis()
 {
 
 }
+/*
+struct {
+       bool operator()(int a, int b) const
+       {
+           return a < b;
+       }
+   } customLess;
+   std::sort(s.begin(), s.end(), customLess);
+*/
+
+/*bool Analysis::sortCondition(Words &w1,  Words &w2)
+{
+    return w1.count < w2.count;
+}*/
 void Analysis::pushwords()
 {
     int i=0,
@@ -241,6 +255,7 @@ void Analysis::pushchains()
     bool find=false;
     std::set<char>  ch,ch2;// Множество разделителей
     std::string buff,// Строка-буфер для считывания строк из файла
+
     stroka=" ";//Строка для хранения текущего выражения
 
     ch.insert('.');//Добавление разделителей в множество разделителей;
@@ -570,6 +585,8 @@ void Analysis::pushchains_ds()
 }
 void Analysis::sort()
 {
+    //qSort(v.begin(), v.end(), this->sortCondition);
+
     int temp, // временная переменная для хранения значения элемента сортируемого массива
     item; // индекс предыдущего элемента
     for (int counter = 1; counter < v.size(); counter++)

@@ -29,8 +29,8 @@ void MainWindow::on_btnFillChains_clicked()
     //header << "Диагноз" << "Сиптомы" << "Частота повторения";
     header << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.length());
-    for (int i = 0 ; i < an.v.length(); i++)
+    ui->tableWidget->setRowCount(an.v.size());
+    for (int i = 0 ; i < an.v.size(); i++)
     {
         //QString ds = codec->toUnicode(an.v[i].ds.c_str());
         QString word = codec->toUnicode(an.v[i].word.c_str());
@@ -57,8 +57,8 @@ void MainWindow::on_btnFillWords_clicked()
     //header << "Диагноз" << "Сиптомы" << "Частота повторения";
     header << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.length());
-    for (int i = 0 ; i < an.v.length(); i++)
+    ui->tableWidget->setRowCount(an.v.size());
+    for (int i = 0 ; i < an.v.size(); i++)
     {
         //QString ds = codec->toUnicode(an.v[i].ds.c_str());
         //QString word = codec->toUnicode(an.v[i].word.c_str());
@@ -86,8 +86,8 @@ void MainWindow::on_btnFillWords_ds_clicked()
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.length());
-    for (int i = 0 ; i < an.v.length(); i++)
+    ui->tableWidget->setRowCount(an.v.size());
+    for (int i = 0 ; i < an.v.size(); i++)
     {
         QString ds = codec->toUnicode(an.v[i].ds.c_str());
         QString word = codec->toUnicode(an.v[i].word.c_str());
@@ -111,8 +111,8 @@ void MainWindow::on_btnFillChains_ds_clicked()
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.length());
-    for (int i = 0 ; i < an.v.length(); i++)
+    ui->tableWidget->setRowCount(an.v.size());
+    for (int i = 0 ; i < an.v.size(); i++)
     {
         QString ds = codec->toUnicode(an.v[i].ds.c_str());
         QString word = codec->toUnicode(an.v[i].word.c_str());

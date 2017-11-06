@@ -6,11 +6,14 @@
 #include <string>
 #include <iostream>
 #include <QVector>
+#include <vector>
 #include <set>
 #include <fstream>
 #include <sstream>
 #include <QString>
 #include <QTextCodec>
+#include <QtAlgorithms>
+#include <algorithm>
 
 class Analysis
 {
@@ -20,7 +23,7 @@ public:
         int         count; //частоты его повторения в тексте
         std::string ds; //и диагоноза
     };
-    QVector<Words> v; //Массив слов(выражений)
+    std::vector<Words> v; //Массив слов(выражений)
     std::ifstream fileReader; //Файловая переменная
     void pushwords_ds(); //Процедура добавления слов в массив
     void pushchains_ds();//Процедура добавления выражений в массив
@@ -31,6 +34,9 @@ public:
     void openfile();
     //void print();
     Analysis();
+
+private:
+    //bool sortCondition(const Words &w1, const Words &w2);
 };
 
 #endif // ANALYSIS_H
