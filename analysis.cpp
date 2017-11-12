@@ -7,15 +7,6 @@ Analysis::Analysis()
 {
 
 }
-/*
-struct {
-       bool operator()(int a, int b) const
-       {
-           return a < b;
-       }
-   } customLess;
-   std::sort(s.begin(), s.end(), customLess);
-*/
 
 bool Analysis:: sortCondition(Words w1,  Words w2)
 {
@@ -277,11 +268,12 @@ void Analysis::pushchains()
     //заголовков из файла
     while(getline(fileReader, buff))//Цикл считывание строк из файла
     {
-        std::string str;//в str хранится текущая строка
-        str = buff;
+        QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+        QString str = codec->toUnicode(buff.c_str());
         i=0;
-        find = false;//Переменная, хранящая информацию,
+        find = true;//Переменная, хранящая информацию,
         //найден ли нужный столбец в файле или нет
+        /*
         while (i!=str.length())//Цикл поиска нужного столбца в файле
         {
             if (str[i]==';')
@@ -296,12 +288,16 @@ void Analysis::pushchains()
                 count=0;
             }
         }
+        */
+        QStringList list;
+        list = str.split(";");
         if (find)//Если найден нужный столбец
         {
-            str=str.substr(str.find_last_of(";")+2,str.length()-(str.find_last_of(";")+2));
+            str= list.last();
+            //str=str.substr(str.find_last_of(";")+2,str.length()-(str.find_last_of(";")+2));
             //в str хранится строка из нужного столбца
             std::string tmp;//В tmp будет храниться текущее слово
-            std::istringstream ist(str);
+            std::istringstream ist(str.toStdString());
             while(ist >> tmp) //Пока не закончится строка str
             {
                 if(tmp.length() >= 0)
@@ -586,22 +582,6 @@ void Analysis::pushchains_ds()
 void Analysis::sort()
 {
     std::sort(v.begin(), v.end(), sortCondition);
-    /*
-    int temp, // временная переменная для хранения значения элемента сортируемого массива
-    item; // индекс предыдущего элемента
-    for (int counter = 1; counter < v.size(); counter++)
-    {
-        Words w;
-        w.count = v[counter].count; // инициализируем временную переменную текущим значением элемента массива
-        w.word = v[counter].word;
-        item = counter-1; // запоминаем индекс предыдущего элемента массива
-        while(item >= 0 && v[item].count < w.count) // пока индекс не равен 0 и предыдущий элемент массива больше текущего
-        {
-            v[item + 1] = v[item]; // перестановка элементов массива
-            v[item] = w;
-            item--;
-        }
-    }*/
 }
 void Analysis::sort_ds()
 {
