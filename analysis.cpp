@@ -12,6 +12,28 @@ bool Analysis:: sortCondition(Words w1,  Words w2)
 {
     return w1.count > w2.count;
 }
+bool Analysis:: sortCondition_ds(Words w1,  Words w2)
+{
+    if (w1.ds == w2.ds)
+    {
+        if (w1.count > w2.count) return true;
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+
+        if (w1.count > w2.count) return true;
+        else
+        {
+            return false;
+        }
+
+        return false;
+    }
+}
 void Analysis::pushwords()
 {
     int i=0,
@@ -215,8 +237,15 @@ void Analysis::pushwords_ds()
                             if(tmp.compare(v[i].word)==0)//Если текущее слово совпало
                             //со словом из массива слов
                             {
-                                v[i].count++;//увеличиваем поле-счётчик слов в массиве слов
-                                match=true;
+                                if (str2.compare(v[i].ds)==0)
+                                {
+                                    v[i].count++;//увеличиваем поле-счётчик слов в массиве слов
+                                    match=true;
+                                }
+                                else
+                                {
+                                    match = false;
+                                }
                             }
                             i++;
                         }
@@ -585,22 +614,7 @@ void Analysis::sort()
 }
 void Analysis::sort_ds()
 {
-    int temp, // временная переменная для хранения значения элемента сортируемого массива
-    item; // индекс предыдущего элемента
-    for (int counter = 1; counter < v.size(); counter++)
-    {
-        Words w;
-        w.count = v[counter].count; // инициализируем временную переменную текущим значением элемента массива
-        w.word = v[counter].word;
-        w.ds = v[counter].ds;
-        item = counter-1; // запоминаем индекс предыдущего элемента массива
-        while(item >= 0 && v[item].ds > w.ds ) // пока индекс не равен 0 и предыдущий элемент массива больше текущего
-        {
-            v[item + 1] = v[item]; // перестановка элементов массива
-            v[item] = w;
-            item--;
-        }
-    }
+    std::sort(v.begin(), v.end(), sortCondition_ds);
 }
 /*
 void Analysis::print()
