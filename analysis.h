@@ -37,6 +37,7 @@ public:
 
 private:
     bool static sortCondition(Words w1, Words w2);
+    bool static sortCondition_ds(Words w1, Words w2);
 };
 
 #endif // ANALYSIS_H
