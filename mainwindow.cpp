@@ -80,15 +80,16 @@ void MainWindow::on_btnFillWords_ds_clicked()
     an.openfile();
     an.pushwords_ds();
     an.sort_ds();
-    QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+    //QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
     ui->tableWidget->setRowCount(an.v.size());
     for (int i = 0 ; i < an.v.size(); i++)
     {
-        QString ds = codec->toUnicode(an.v[i].ds.c_str());
-        QString word = codec->toUnicode(an.v[i].word.c_str());
+
+        QString ds = QString::fromStdString(an.v[i].ds);
+        QString word = QString::fromStdString(an.v[i].word);
         QString count = QString::number(an.v[i].count);
         //word = codec->toUnicode(an.v[i].word.c_str());
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));

@@ -14,25 +14,15 @@ bool Analysis:: sortCondition(Words w1,  Words w2)
 }
 bool Analysis:: sortCondition_ds(Words w1,  Words w2)
 {
-    if (w1.ds == w2.ds)
-    {
-        if (w1.count > w2.count) return true;
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-
-        if (w1.count > w2.count) return true;
-        else
-        {
-            return false;
-        }
-
-        return false;
-    }
+    int comp = w1.ds.compare(w2.ds);
+    if (comp < 0) return true;
+    else return false;
+}
+bool Analysis:: sortCondition_ds2(Words w1,  Words w2)
+{
+    int comp = w1.ds.compare(w2.ds);
+    if (comp == 0) return w1.count > w2.count;
+    else return false;
 }
 void Analysis::pushwords()
 {
@@ -164,7 +154,7 @@ void Analysis::pushwords_ds()
     ch.insert('7');
     ch.insert('8');
     ch.insert('9');
-    ch.insert('.');
+    //ch.insert('.');
 
     Words words;
     words.count = 0;
@@ -177,30 +167,34 @@ void Analysis::pushwords_ds()
     //заголовков из файла
     while(getline(fileReader, buff)) //Цикл считывание строк из файла
     {
-        std::string str,str2,str3,strlast;//в str хранится текущая строка
-        str = buff;
-        str2 = buff;
+        QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+        QString str = codec->toUnicode(buff.c_str());
+        QString str2,str3,strlast;
+        str2 = str;
         i=0;
-        find = false;//Переменная, хранящая информацию,
+        find = true;//Переменная, хранящая информацию,
         bool end = false;
         //найден ли нужный столбец в файле или нет
         //std::cout << str.find('F')<< std::endl;
-        if (str.find('F')<str.length()) //Если в строке есть диагоноз
+        if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
-            str2 = str.substr(str.find('F'),7);
+            str2 = str.mid(str.indexOf('F'),7);
             str3 = str2;
             int count2 = 0;
-            for(int i = 0 ; i < str3.length(); i++)
+            for(int i = str3.indexOf(".")+1 ; i < str3.length(); i++)
             {
-                    if (ch.find(str3[i])!= ch.end())
+                    if (ch.find(str3[i].toLatin1())== ch.end())
                     {
-                        count2 = i;
-                        str2 = str3.substr(0, count2+1);
+                        str2 = str3.remove(i,str3.length());
+                        break;
                     }
             }
-            if (str2[str2.length()-1]=='.') str2.erase(str2.length()-1,1);
+            //if (str2[str2.length()-1]=='.') str2.erase(str2.length()-1,1);
             strlast = str2;
+            QStringList list;
+            list = str.split(";");
+            /*
             while (i!=str.length())//Цикл поиска нужного столбца в файле
             {
                 if (str[i]==';')
@@ -214,17 +208,22 @@ void Analysis::pushwords_ds()
                     count=0;
                 }
             }
+            */
             if (find)//Если найден нужный столбец
             {
-                str=str.substr(str.find_last_of(";")+2,(str.length()-str.find_last_of(";")+2));
+                str= list.last();
+                //str=str.substr(str.find_last_of(";")+2,(str.length()-str.find_last_of(";")+2));
                 //в str хранится строка из нужного столбца
+                std::string buffstr;
+                buffstr = str.toStdString();
                 for(int i = 0; i < str.length(); ++i)//Цикл удаления символов-разделителей
                 {
-                        if (ch2.find(str[i])!= ch2.end()) str[i] = ' ';
+                        if (ch2.find(buffstr[i])!= ch2.end()) buffstr[i] = ' ';
                         //Если найден разделитель, то заменить его пробелом
                 }
+                str = QString::fromStdString(buffstr);
                 std::string tmp;//В tmp будет храниться текущее слово
-                std::istringstream ist(str);
+                std::istringstream ist(str.toStdString());
                 while(ist >> tmp)//Пока не закончится строка str
                 {
                     if(tmp.length() >= 3)//Если длина слова меньше или равна 3
@@ -237,7 +236,7 @@ void Analysis::pushwords_ds()
                             if(tmp.compare(v[i].word)==0)//Если текущее слово совпало
                             //со словом из массива слов
                             {
-                                if (str2.compare(v[i].ds)==0)
+                                if (QString::compare(str2, QString::fromStdString(v[i].ds)) == 0)
                                 {
                                     v[i].count++;//увеличиваем поле-счётчик слов в массиве слов
                                     match=true;
@@ -255,7 +254,7 @@ void Analysis::pushwords_ds()
                             w.word  = tmp;
                             w.count = 1;
                             //if (str2.length()>0)
-                            w.ds = str2;
+                            w.ds = str2.toStdString();
                             v.push_back(w);//То добавить его в массив слов
                         }
                     }
@@ -615,6 +614,7 @@ void Analysis::sort()
 void Analysis::sort_ds()
 {
     std::sort(v.begin(), v.end(), sortCondition_ds);
+    std::sort(v.begin(), v.end(), sortCondition_ds2);
 }
 /*
 void Analysis::print()
