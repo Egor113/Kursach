@@ -12,16 +12,11 @@ bool Analysis:: sortCondition(Words w1,  Words w2)
 {
     return w1.count > w2.count;
 }
-bool Analysis:: sortCondition_ds(Words w1,  Words w2)
+
+bool Analysis:: sortCondition_ds(Words_ds w1,  Words_ds w2)
 {
-    int comp = w1.ds.compare(w2.ds);
-    if (comp < 0) return true;
-    else return false;
-}
-bool Analysis:: sortCondition_ds2(Words w1,  Words w2)
-{
-    int comp = w1.ds.compare(w2.ds);
-    if (comp == 0) return w1.count > w2.count;
+    int comp = w1.diagID.compare(w2.diagID);
+    if (comp > 0) return true;
     else return false;
 }
 void Analysis::pushwords()
@@ -89,6 +84,7 @@ void Analysis::pushwords()
             {
                 if(tmp.length() >= 3)//Если длина слова меньше или равна 3
                 {
+
                     bool match=false;
                     int i = 0;
                     while ((!match) && (i<v.size()))//Пока слово не найдено и не достингнут
@@ -228,6 +224,8 @@ void Analysis::pushwords_ds()
                 {
                     if(tmp.length() >= 3)//Если длина слова меньше или равна 3
                     {
+                        if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
+                        if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
                         bool match=false;
                         int i = 0;
                         while ((!match) && (i<v.size()))//Пока слово не найдено и не достингнут
@@ -256,6 +254,10 @@ void Analysis::pushwords_ds()
                             //if (str2.length()>0)
                             w.ds = str2.toStdString();
                             v.push_back(w);//То добавить его в массив слов
+                            Words_ds w_ds;
+                            w_ds.v = v;
+                            w_ds.diagID = str2.toStdString();;
+                            v_ds.push_back(w_ds);
                         }
                     }
                 }
@@ -613,8 +615,10 @@ void Analysis::sort()
 }
 void Analysis::sort_ds()
 {
-    std::sort(v.begin(), v.end(), sortCondition_ds);
-    std::sort(v.begin(), v.end(), sortCondition_ds2);
+    foreach(Words_ds wds, v_ds)
+        std::sort(wds.v.begin(), wds.v.end(), sortCondition);
+
+    std::sort(v_ds.begin(), v_ds.end(), sortCondition_ds);
 }
 /*
 void Analysis::print()

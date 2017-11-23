@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTextCodec> // подключение класса кодека текста
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -84,18 +85,41 @@ void MainWindow::on_btnFillWords_ds_clicked()
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.size());
-    for (int i = 0 ; i < an.v.size(); i++)
-    {
+    //qDebug() << ui->tableWidget->rowCount();
+    FILE *f = fopen("1.txt", "w+");
+    qDebug() << an.v_ds.size() << "\n";
+    foreach(Analysis::Words_ds wds, an.v_ds) {
+        qDebug() << wds.v.size();
+        QString ds = QString::fromStdString(wds.diagID);
+        foreach(Analysis::Words w, wds.v) {
 
-        QString ds = QString::fromStdString(an.v[i].ds);
-        QString word = QString::fromStdString(an.v[i].word);
-        QString count = QString::number(an.v[i].count);
-        //word = codec->toUnicode(an.v[i].word.c_str());
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
-        ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
-        ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
+//            for (int i = 0 ; i < wds.v.size(); i++)
+//            {
+                fprintf(f, "%s %s %d\n", ds.toStdString().c_str(), w.word.c_str(), w.count);
+//                QString ds = QString::fromStdString(w.ds);
+//                QString word = QString::fromStdString(w.word);
+//                QString count = QString::number(w.count);
+//                //word = codec->toUnicode(an.v[i].word.c_str());
+//                ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
+//                ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
+//                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
+//            }
+//            ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+wds.v.size());
+        }
     }
+//    ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+);
+//    ui->tableWidget->setRowCount(an.v.size());
+//    for (int i = 0 ; i < an.v.size(); i++)
+//    {
+
+//        QString ds = QString::fromStdString(an.v[i].ds);
+//        QString word = QString::fromStdString(an.v[i].word);
+//        QString count = QString::number(an.v[i].count);
+//        //word = codec->toUnicode(an.v[i].word.c_str());
+//        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
+//        ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
+//        ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
+//    }
 }
 
 void MainWindow::on_btnFillChains_ds_clicked()

@@ -23,7 +23,13 @@ public:
         int         count; //частоты его повторения в тексте
         std::string ds; //и диагоноза
     };
+    struct Words_ds
+    {
+        std::string diagID;
+        std::vector<Words> v;
+    };
     std::vector<Words> v; //Массив слов(выражений)
+    std::vector<Words_ds> v_ds;
     std::ifstream fileReader; //Файловая переменная
     void pushwords_ds(); //Процедура добавления слов в массив
     void pushchains_ds();//Процедура добавления выражений в массив
@@ -37,8 +43,8 @@ public:
 
 private:
     bool static sortCondition(Words w1, Words w2);
-    bool static sortCondition_ds(Words w1, Words w2);
-    bool static sortCondition_ds2(Words w1, Words w2);
+    bool static sortCondition_ds(Words_ds w1, Words_ds w2);
+    //bool static sortCondition_ds2(Words w1, Words w2);
 };
 
 #endif // ANALYSIS_H
