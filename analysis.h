@@ -14,6 +14,7 @@
 #include <QTextCodec>
 #include <QtAlgorithms>
 #include <algorithm>
+#include <QRegularExpression>
 
 class Analysis
 {

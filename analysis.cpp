@@ -159,6 +159,12 @@ void Analysis::pushwords_ds()
     v.push_back(words);//Добавление первого элемента
     //в массив слов
 
+    Words_ds words_ds;
+    words_ds.diagID = "";
+    words_ds.v = v;
+
+    v_ds.push_back(words_ds);
+
     getline(fileReader, buff); // считывания первой(служебной) строки
     //заголовков из файла
     while(getline(fileReader, buff)) //Цикл считывание строк из файла
@@ -242,9 +248,30 @@ void Analysis::pushwords_ds()
                                 else
                                 {
                                     match = false;
+//                                    Words_ds w_ds;
+//                                    //w_ds.v = v;
+//                                    w_ds.diagID = str2.toStdString();;
+//                                    v_ds.push_back(w_ds);
                                 }
                             }
                             i++;
+                        }
+                        bool match_ds = false;
+                        for (int j = 0; j<v_ds.size(); ++j)
+                        {
+                            if (QString::compare(str2, QString::fromStdString(v_ds[j].diagID)) == 0)
+                            {
+                                v_ds[j].v = v;
+                                match_ds = true;
+
+                            }
+                        }
+                        if (!match_ds)
+                        {
+                            Words_ds w_ds;
+                            //w_ds.v = v;
+                            w_ds.diagID = str2.toStdString();;
+                            v_ds.push_back(w_ds);
                         }
                         if (!match)//Если текущее слово встретилось в первый раз
                         {
@@ -254,10 +281,6 @@ void Analysis::pushwords_ds()
                             //if (str2.length()>0)
                             w.ds = str2.toStdString();
                             v.push_back(w);//То добавить его в массив слов
-                            Words_ds w_ds;
-                            w_ds.v = v;
-                            w_ds.diagID = str2.toStdString();;
-                            v_ds.push_back(w_ds);
                         }
                     }
                 }
@@ -302,128 +325,50 @@ void Analysis::pushchains()
         QString str = codec->toUnicode(buff.c_str());
         i=0;
         find = true;//Переменная, хранящая информацию,
-        //найден ли нужный столбец в файле или нет
-        /*
-        while (i!=str.length())//Цикл поиска нужного столбца в файле
-        {
-            if (str[i]==';')
-            {
-                count++;
-                //std::cout << "Count: " << count << std::endl;
-            }
-            i++;
-            if (count==13)//Если найден нужный столбец
-            {
-                find=true;//То find=true
-                count=0;
-            }
-        }
-        */
         QStringList list;
         list = str.split(";");
         if (find)//Если найден нужный столбец
         {
+            //[abc]
             str= list.last();
-            //str=str.substr(str.find_last_of(";")+2,str.length()-(str.find_last_of(";")+2));
-            //в str хранится строка из нужного столбца
-            std::string tmp;//В tmp будет храниться текущее слово
-            std::istringstream ist(str.toStdString());
-            while(ist >> tmp) //Пока не закончится строка str
+            QStringList chains = str.split(QRegularExpression("[,.()\"]"));
+            /*
+            for(int i = 0; i < chains.size(); ++i) {
+                qDebug() << chains.at(i);
+            }
+            */
+            for (int j = 0; j < chains.size(); ++j)
             {
-                if(tmp.length() >= 0)
+                //QString s =
+                std::string buffstr;
+                buffstr = chains.at(j).toStdString();
+                if (buffstr.length()>=3 )//Если длина слова меньше или равна 3
                 {
+
                     bool match=false;
                     int i = 0;
-                    if (ch.find(stroka[stroka.length()-1]) != ch.end())//Если последний символ
-                    //строки является разделителем
+                    while ((!match) && (i<v.size()))//Пока слово не найдено и не достингнут
+                        //конец массива слов
                     {
-                        stroka.erase(stroka.length()-1,1);//удалить последний символ строки
-                        for(int i = 0; i < stroka.length(); ++i)//Цикл удаления символов-разделителей
+                        if(buffstr.compare(v[i].word)==0)//Если текущее слово совпало
+                            //со словом из массива слов
                         {
-                            if (ch2.find(stroka[i])!= ch2.end())
-                            {
-                                stroka.erase(stroka.find(stroka[i]),1);
-                                i=-1;
-                            }
+                            v[i].count++;//увеличиваем поле-счётчик слов в массиве слов
+                            match=true;
                         }
-                        while ((!match) && (i<v.size()))//Пока выражение не найдено и не достингнут
-                        //конец массива выражений
-                        {
-                            if(stroka.compare(v[i].word)==0)//Если текущее выражение совпало
-                        //со выражением из массива выражений
-                            {
-                                v[i].count++;//увеличиваем поле-счётчик выражений в массиве выражений
-                                match=true;
-                            }
-                            i++;
-                        }
-                        if (!match)//Если текущее выражение встретилось в первый раз
-                        {
-                            Words w;
-                            w.word  = stroka;
-                            w.count = 1;
-                            v.push_back(w);//То добавить его в массив выражений
-                            stroka=tmp;//В stroka хранится текущее выражение
-                        }
-                    else stroka=tmp;;//В stroka хранится текущее выражение
+                        i++;
                     }
-                    else
+                    if (!match)//Если текущее слово встретилось в первый раз
                     {
-                            if (stroka[0]==' ')//Если первый символ stroka пробел
-                            {
-                                stroka.clear();//Очистить stroka
-                                stroka=stroka+tmp;//Добавить в stroka текущее слово
-                            } else stroka=stroka+' '+tmp;//Добавить в stroka текущее слово через пробел
+                        Words w;
+                        w.word  = buffstr;
+                        w.count = 1;
+                        v.push_back(w);//То добавить его в массив слов
                     }
-
                 }
             }
         }
     }
-    bool match=false;
-    i = 0;
-    //Повторить операцию добавления выражение в массив выражений
-    //для последнего выражения текущей строки файл
-    //new text
-    if (ch.find(stroka[stroka.length()-1]) != ch.end())
-    {
-        stroka.erase(stroka.length()-1,1);
-        for(int i = 0; i < stroka.length(); ++i)//Цикл удаления символов-разделителей
-        {
-            if (ch2.find(stroka[i])!= ch2.end())
-            {
-                stroka.erase(stroka.find(stroka[i]),1);
-                i=-1;
-            }
-        }
-        if(stroka.compare(v[i].word)==0)//Если текущее выражение совпало
-        //со выражением из массива выражений
-            {
-                        v[i].count++;//увеличиваем поле-счётчик выражений в массиве выражений
-                        match=true;
-            }
-        while ((!match) && (i<v.size()))
-        {
-            if(stroka.compare(v[i].word)==0)
-            {
-                v[i].count++;
-                match=true;
-            }
-            i++;
-        }
-        if (!match)
-        {
-        Words w;
-        w.word  = stroka;
-        w.count = 1;
-        v.push_back(w);
-        }
-
-    }
-    ch.clear();//Очистить память, выделенную под множество разделителей
-    ch2.clear();//Очистить память, выделенную под множество разделителей
-    std::string().swap(buff);//Очистить память, выделенную под строку buff
-    std::string().swap(stroka);//Очистить память, выделенную под строку stroka
 }
 void Analysis::pushchains_ds()
 {
@@ -617,7 +562,6 @@ void Analysis::sort_ds()
 {
     foreach(Words_ds wds, v_ds)
         std::sort(wds.v.begin(), wds.v.end(), sortCondition);
-
     std::sort(v_ds.begin(), v_ds.end(), sortCondition_ds);
 }
 /*
