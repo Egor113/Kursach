@@ -80,20 +80,33 @@ void MainWindow::on_btnFillWords_ds_clicked()
     Analysis an;
     an.openfile();
     an.pushwords_ds();
-    //an.sort_ds();
+    an.sort_ds();
+    //an.sort();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
     //qDebug() << an.v_s.size() << "\n";
-    foreach(Analysis::Words_ds wds, an.v_ds)
+    for (int j=0; j<an.v_ds.size(); ++j)
     {
-        QString ds = QString::fromStdString(wds.diagID);
+        Analysis::Words_ds wds = an.v_ds[j];
         ui->tableWidget->setHorizontalHeaderLabels(header);
         ui->tableWidget->setRowCount(wds.v.size());
+        /*
+        for (int i = 0; i < wds.v.size(); ++i)
+        {
+            /*
+            QString ds = QString::fromStdString(wds.diagID);
+            QString word = QString::fromStdString(wds.v[i].word);
+            if (word != "")
+            {
+                qDebug() << ds << " " << word;
+            }
+       }*/
+
         for (int i = 0 ; i < wds.v.size(); i++)
         {
 
-            QString ds = QString::fromStdString(an.v[i].ds);
+            QString ds = QString::fromStdString(wds.v[i].ds);
             QString word = QString::fromStdString(wds.v[i].word);
             QString count = QString::number(wds.v[i].count);
             //word = codec->toUnicode(an.v[i].word.c_str());
@@ -103,6 +116,7 @@ void MainWindow::on_btnFillWords_ds_clicked()
                 ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
                 ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
             }
+            //qDebug() << QString::fromStdString(wds.diagID) << QString::fromStdString(wds.v[i].word) << wds.v[i].count;
         }
         /*
         for (int i = 0; i < wds.v.size(); ++i)
@@ -156,20 +170,29 @@ void MainWindow::on_btnFillChains_ds_clicked()
     Analysis an;
     an.openfile();
     an.pushchains_ds();
-    an.sort_ds();
-    QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
+    //an.sort_ds();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(an.v.size());
-    for (int i = 0 ; i < an.v.size(); i++)
+    //qDebug() << an.v_s.size() << "\n";
+    foreach(Analysis::Words_ds wds, an.v_ds)
     {
-        QString ds = codec->toUnicode(an.v[i].ds.c_str());
-        QString word = codec->toUnicode(an.v[i].word.c_str());
-        QString count = QString::number(an.v[i].count);
-        //word = codec->toUnicode(an.v[i].word.c_str());
-        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
-        ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
-        ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
+        QString ds = QString::fromStdString(wds.diagID);
+        ui->tableWidget->setHorizontalHeaderLabels(header);
+        ui->tableWidget->setRowCount(wds.v.size());
+        for (int i = 0 ; i < wds.v.size(); i++)
+        {
+
+            QString ds = QString::fromStdString(an.v[i].ds);
+            QString word = QString::fromStdString(wds.v[i].word);
+            QString count = QString::number(wds.v[i].count);
+            //word = codec->toUnicode(an.v[i].word.c_str());
+            if (word != "")
+            {
+                ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
+                ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
+                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
+            }
+        }
     }
 }
