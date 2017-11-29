@@ -37,15 +37,17 @@ public:
     void pushwords(); //Процедура добавления слов в массив
     void pushchains();//Процедура добавления выражений в массив
     void sort_ds();
+    void sort_ds_2();
     void sort();
     void openfile();
+    void push_ds();
     //void print();
     Analysis();
 
 private:
     bool static sortCondition(Words w1, Words w2);
     bool static sortCondition_ds(Words_ds w1, Words_ds w2);
-    //bool static sortCondition_ds2(Words w1, Words w2);
+    bool static sortCondition_ds2(Words w1, Words w2);
 };
 
 #endif // ANALYSIS_H

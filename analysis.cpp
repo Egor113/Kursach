@@ -19,6 +19,12 @@ bool Analysis:: sortCondition_ds(Words_ds w1,  Words_ds w2)
     if (comp < 0) return true;
     else return false;
 }
+bool Analysis:: sortCondition_ds2(Words w1,  Words w2)
+{
+    int comp = w1.ds.compare(w2.ds);
+    if (comp < 0) return true;
+    else return false;
+}
 void Analysis::pushwords()
 {
     int i=0,
@@ -159,11 +165,11 @@ void Analysis::pushwords_ds()
     v.push_back(words);//Добавление первого элемента
     //в массив слов
 
-    Words_ds words_ds;
-    words_ds.diagID = "";
-    words_ds.v = v;
+//    Words_ds words_ds;
+//    words_ds.diagID = "";
+//    words_ds.v = v;
 
-    v_ds.push_back(words_ds);
+//    v_ds.push_back(words_ds);
 
     getline(fileReader, buff); // считывания первой(служебной) строки
     //заголовков из файла
@@ -256,12 +262,13 @@ void Analysis::pushwords_ds()
                             }
                             i++;
                         }
+                        /*
                         bool match_ds = false;
                         for (int j = 0; j<v_ds.size(); ++j)
                         {
                             if (QString::compare(str2, QString::fromStdString(v_ds[j].diagID)) == 0)
                             {
-                                v_ds[j].v = v;
+                                //v_ds[j].v = v;
                                 match_ds = true;
 
                             }
@@ -269,10 +276,10 @@ void Analysis::pushwords_ds()
                         if (!match_ds)
                         {
                             Words_ds w_ds;
-                            //w_ds.v = v;
+                            w_ds.v = v;
                             w_ds.diagID = str2.toStdString();;
                             v_ds.push_back(w_ds);
-                        }
+                        }*/
                         if (!match)//Если текущее слово встретилось в первый раз
                         {
                             Words w;
@@ -523,6 +530,27 @@ void Analysis::sort()
 void Analysis::sort_ds()
 {
     std::sort(v_ds.begin(), v_ds.end(), sortCondition_ds);
+}
+void Analysis::sort_ds_2()
+{
+    std::sort(v.begin(), v.end(), sortCondition_ds2);
+}
+void Analysis::push_ds()
+{
+    Analysis::sort_ds_2();
+    std::vector<Words> buff_v;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        buff_v.push_back(v[i]);
+        if (v[i+1].ds != v[i].ds)
+        {
+            Words_ds wds;
+            wds.diagID = v[i].ds;
+            wds.v = buff_v;
+            v_ds.push_back(wds);
+            buff_v.clear();
+        }
+    }
 }
 /*
 void Analysis::print()

@@ -80,87 +80,47 @@ void MainWindow::on_btnFillWords_ds_clicked()
     Analysis an;
     an.openfile();
     an.pushwords_ds();
+    an.push_ds();
     an.sort_ds();
     //an.sort();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
+    ui->tableWidget->setHorizontalHeaderLabels(header);
+    ui->tableWidget->setRowCount(1000);
     //qDebug() << an.v_s.size() << "\n";
+    int sum = 0;
     for (int j=0; j<an.v_ds.size(); ++j)
     {
         Analysis::Words_ds wds = an.v_ds[j];
-        ui->tableWidget->setHorizontalHeaderLabels(header);
-        ui->tableWidget->setRowCount(wds.v.size());
+
         /*
         for (int i = 0; i < wds.v.size(); ++i)
         {
-            /*
+
             QString ds = QString::fromStdString(wds.diagID);
             QString word = QString::fromStdString(wds.v[i].word);
             if (word != "")
             {
-                qDebug() << ds << " " << word;
+                qDebug() << QString::fromStdString(wds.diagID) << " " << word;
             }
        }*/
 
-        for (int i = 0 ; i < wds.v.size(); i++)
+        for (int i = 0 ; i < (wds.v.size()); i++)
         {
-
-            QString ds = QString::fromStdString(wds.v[i].ds);
+            sum ++;
+            QString ds = QString::fromStdString(wds.diagID);
             QString word = QString::fromStdString(wds.v[i].word);
             QString count = QString::number(wds.v[i].count);
             //word = codec->toUnicode(an.v[i].word.c_str());
-            if (word != "")
-            {
-                ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
-                ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
-                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
-            }
+            ui->tableWidget->setItem(sum,0,new QTableWidgetItem(QString(ds)));
+            ui->tableWidget->setItem(sum,1,new QTableWidgetItem(QString(word)));
+            ui->tableWidget->setItem(sum,2,new QTableWidgetItem(QString(count)));
             //qDebug() << QString::fromStdString(wds.diagID) << QString::fromStdString(wds.v[i].word) << wds.v[i].count;
         }
-        /*
-        for (int i = 0; i < wds.v.size(); ++i)
-        {
-            QString word = QString::fromStdString(wds.v[i].word);
-            if (word != "")
-            {
-                qDebug() << ds << " " << word;
-            }
-        }
-        */
-    /*
-        foreach(Analysis::Words w, wds.v)
-        {
 
-//            for (int i = 0 ; i < wds.v.size(); i++)
-//            {
-                fprintf(f, "%s %s %d\n", ds.toStdString().c_str(), w.word.c_str(), w.count);
-//                QString ds = QString::fromStdString(w.ds);
-//                QString word = QString::fromStdString(w.word);
-//                QString count = QString::number(w.count);
-//                //word = codec->toUnicode(an.v[i].word.c_str());
-//                ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
-//                ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
-//                ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
-//            }
-//            ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+wds.v.size());
-        }
-        */
+
     }
-
-//    ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+);
-//    ui->tableWidget->setRowCount(an.v.size());
-//    for (int i = 0 ; i < an.v.size(); i++)
-//    {
-
-//        QString ds = QString::fromStdString(an.v[i].ds);
-//        QString word = QString::fromStdString(an.v[i].word);
-//        QString count = QString::number(an.v[i].count);
-//        //word = codec->toUnicode(an.v[i].word.c_str());
-//        ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
-//        ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(word)));
-//        ui->tableWidget->setItem(i,2,new QTableWidgetItem(QString(count)));
-//    }
 }
 
 void MainWindow::on_btnFillChains_ds_clicked()
