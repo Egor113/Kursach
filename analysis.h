@@ -30,6 +30,7 @@ public:
         std::vector<Words> v;
     };
     std::vector<Words> v; //Массив слов(выражений)
+    std::vector<Words> buff_v;
     std::vector<Words_ds> v_ds;
     std::ifstream fileReader; //Файловая переменная
     void pushwords_ds(); //Процедура добавления слов в массив
@@ -39,6 +40,7 @@ public:
     void sort_ds();
     void sort_ds_2();
     void sort();
+    void sort_buff();
     void openfile();
     void push_ds();
     //void print();

@@ -25,6 +25,7 @@ bool Analysis:: sortCondition_ds2(Words w1,  Words w2)
     if (comp < 0) return true;
     else return false;
 }
+
 void Analysis::pushwords()
 {
     int i=0,
@@ -535,15 +536,19 @@ void Analysis::sort_ds_2()
 {
     std::sort(v.begin(), v.end(), sortCondition_ds2);
 }
+void Analysis::sort_buff()
+{
+    std::sort(buff_v.begin(), buff_v.end(), sortCondition);
+}
 void Analysis::push_ds()
 {
     Analysis::sort_ds_2();
-    std::vector<Words> buff_v;
     for (int i = 0; i < v.size(); ++i)
     {
         buff_v.push_back(v[i]);
         if (v[i+1].ds != v[i].ds)
         {
+            Analysis::sort_buff();
             Words_ds wds;
             wds.diagID = v[i].ds;
             wds.v = buff_v;

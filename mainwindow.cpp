@@ -82,7 +82,6 @@ void MainWindow::on_btnFillWords_ds_clicked()
     an.pushwords_ds();
     an.push_ds();
     an.sort_ds();
-    an.sort();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
