@@ -82,7 +82,7 @@ void MainWindow::on_btnFillWords_ds_clicked()
     an.pushwords_ds();
     an.push_ds();
     an.sort_ds();
-    //an.sort();
+    an.sort();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
@@ -93,22 +93,8 @@ void MainWindow::on_btnFillWords_ds_clicked()
     for (int j=0; j<an.v_ds.size(); ++j)
     {
         Analysis::Words_ds wds = an.v_ds[j];
-
-        /*
-        for (int i = 0; i < wds.v.size(); ++i)
-        {
-
-            QString ds = QString::fromStdString(wds.diagID);
-            QString word = QString::fromStdString(wds.v[i].word);
-            if (word != "")
-            {
-                qDebug() << QString::fromStdString(wds.diagID) << " " << word;
-            }
-       }*/
-
         for (int i = 0 ; i < (wds.v.size()); i++)
         {
-            sum ++;
             QString ds = QString::fromStdString(wds.diagID);
             QString word = QString::fromStdString(wds.v[i].word);
             QString count = QString::number(wds.v[i].count);
@@ -116,11 +102,22 @@ void MainWindow::on_btnFillWords_ds_clicked()
             ui->tableWidget->setItem(sum,0,new QTableWidgetItem(QString(ds)));
             ui->tableWidget->setItem(sum,1,new QTableWidgetItem(QString(word)));
             ui->tableWidget->setItem(sum,2,new QTableWidgetItem(QString(count)));
+            sum ++;
             //qDebug() << QString::fromStdString(wds.diagID) << QString::fromStdString(wds.v[i].word) << wds.v[i].count;
         }
-
-
     }
+    /*
+    for (int i = 0; i < wds.v.size(); ++i)
+    {
+
+        QString ds = QString::fromStdString(wds.diagID);
+        QString word = QString::fromStdString(wds.v[i].word);
+        if (word != "")
+        {
+            qDebug() << QString::fromStdString(wds.diagID) << " " << word;
+        }
+   }*/
+
 }
 
 void MainWindow::on_btnFillChains_ds_clicked()
