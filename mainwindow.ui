@@ -58,6 +58,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btnWidgetShow">
+         <property name="text">
+          <string>Сделать анализ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnExit">
          <property name="text">
           <string>Выход</string>

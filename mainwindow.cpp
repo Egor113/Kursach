@@ -2,17 +2,20 @@
 #include "ui_mainwindow.h"
 #include <QTextCodec> // подключение класса кодека текста
 #include <QDebug>
+#include "widget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    w = NULL;
     connect(ui->btnExit, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 MainWindow::~MainWindow()
 {
+    if(w != NULL) delete w;
     delete ui;
 }
 
@@ -85,7 +88,6 @@ void MainWindow::on_btnFillWords_ds_clicked()
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setHorizontalHeaderLabels(header);
     ui->tableWidget->setRowCount(1000);
     //qDebug() << an.v_s.size() << "\n";
     int sum = 0;
@@ -151,4 +153,13 @@ void MainWindow::on_btnFillChains_ds_clicked()
             }
         }
     }
+}
+
+void MainWindow::on_btnWidgetShow_clicked()
+{
+    if(w != NULL) delete w;
+    w = new Widget();
+//  Формирование нового вектора (диагноз, кол-во повторений)
+//  w->setPlotParams(slovo,siagnozList)
+    w->show();
 }

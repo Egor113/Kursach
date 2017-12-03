@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "analysis.h"
+#include "widget.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -26,8 +28,11 @@ private slots:
 
     void on_btnFillChains_ds_clicked();
 
+    void on_btnWidgetShow_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Widget *w;
 };
 
 #endif // MAINWINDOW_H
