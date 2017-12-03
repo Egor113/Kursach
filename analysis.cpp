@@ -641,4 +641,29 @@ void Analysis::openfile()
     fileReader.open(str.toStdString(), std::ios::in | std::ios::binary);
 
 }
-
+void Analysis::get_ds(std::string str)
+{
+//    for (int i = 0; i < v.size(); ++i)
+//    {
+//        if (v[i].word == str)
+//        {
+//            CurrWord w_curr;
+//            w_curr.diagID = v[i].ds;
+//            w_curr.count = v[i].count;
+//            v_curr.push_back(w_curr);
+//        }
+//    }
+    for (int i = 0; i < v_ds.size(); ++i)
+    {
+        for (int j = 0; j < v_ds[i].v.size(); ++j)
+        {
+            if (v_ds[i].v[j].word == str)
+            {
+                CurrWord w_curr;
+                w_curr.diagID = v_ds[i].v[j].ds;
+                w_curr.count = v_ds[i].v[j].count;
+                v_curr.push_back(w_curr);
+            }
+        }
+    }
+}

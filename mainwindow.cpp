@@ -159,7 +159,28 @@ void MainWindow::on_btnWidgetShow_clicked()
 {
     if(w != NULL) delete w;
     w = new Widget();
+    Analysis an;
+    an.openfile();
+    an.pushwords_ds();
+    an.push_ds();
+    //qDebug() << ui->tableWidget->currentRow();
+    QString text;
+    for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
+    {
+        int row = ui->tableWidget->currentRow();
+        if (row == ui->tableWidget->row(ui->tableWidget->currentItem()))
+        {
+            //qDebug() << ui->tableWidget->item(row,1)->text();
+            text = ui->tableWidget->item(row,1)->text();
+        }
+    }
+    an.get_ds(text.toStdString());
+    for (int  i = 0; i < an.v_curr.size(); ++i)
+    {
+        qDebug() << QString::fromStdString(an.v_curr[i].diagID) << an.v_curr[i].count;
+    }
+
 //  Формирование нового вектора (диагноз, кол-во повторений)
 //  w->setPlotParams(slovo,siagnozList)
-    w->show();
+    //w->show();
 }
