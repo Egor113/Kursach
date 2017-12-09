@@ -5,7 +5,6 @@
 #include "analysis.h"
 #include "widget.h"
 
-
 namespace Ui {
 class MainWindow;
 }

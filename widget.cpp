@@ -25,6 +25,7 @@ void Widget::rndres()
     fossil = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 
     //customPlot->addPlottable(fossil);
+    //customPlot->addPlottable(fossil);
     // Установки цвета:
     QPen pen;
     pen.setWidthF(1.5);//Толщина контура столбца
@@ -37,9 +38,13 @@ void Widget::rndres()
     // Установки значений оси X:
     QVector<double> ticks;
     QVector<QString> labels;
-    ticks << 1 << 2 << 3 << 4 << 5 << 6 << 7;
-    labels << "1" << "2" << "3" << "4" << "5" << "6" << "7";
-//    //customPlot->xAxis->setAutoTicks(false);
+    for(int i = 0; i < v.size(); ++i) {
+        ticks << i+1;
+        labels << v[i].diagID;
+    }
+//    ticks << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+//    labels << "1" << "2" << "3" << "4" << "5" << "6" << "7";
+//    customPlot->xAxis->setAutoTicks(false);
 //    customPlot->xAxis->setAutoTickLabels(false);
 //    customPlot->xAxis->setTickVector(ticks);
 //    customPlot->xAxis->setTickVectorLabels(labels);
@@ -63,14 +68,16 @@ void Widget::rndres()
 
     // Данные:
     QVector<double> fossilData;
-    qsrand (time(NULL));
-    fossilData  << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5
-                << qrand() % 10 + 2.5;
+    for(int i = 0; i < v.size(); ++i)
+        fossilData.append((double)(v[i].count));
+//    qsrand (time(NULL));
+//    fossilData  << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5
+//                << qrand() % 10 + 2.5;
     fossil->setData(ticks, fossilData);
 
     // Легенда:
@@ -89,4 +96,9 @@ void Widget::rndres()
     // Сброс всех установок графика:
     customPlot->removePlottable(fossil);
 
+}
+void Widget::setPlotParams(QString str, QVector<CurrWord> vect)
+{
+    word = str;
+    v = vect;
 }

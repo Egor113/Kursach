@@ -159,28 +159,43 @@ void MainWindow::on_btnWidgetShow_clicked()
 {
     if(w != NULL) delete w;
     w = new Widget();
-    Analysis an;
-    an.openfile();
-    an.pushwords_ds();
-    an.push_ds();
+    QVector <CurrWord> v_curr;
+    //Analysis an;
+    //an.openfile();
+    //an.pushwords_ds();
+    //an.push_ds();
     //qDebug() << ui->tableWidget->currentRow();
     QString text;
+    text = ui->tableWidget->currentItem()->data(0).toString();
     for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
     {
-        int row = ui->tableWidget->currentRow();
-        if (row == ui->tableWidget->row(ui->tableWidget->currentItem()))
+        if (text.compare(ui->tableWidget->itemAt(1, i)->data(0).toString()) == 0)
         {
-            //qDebug() << ui->tableWidget->item(row,1)->text();
-            text = ui->tableWidget->item(row,1)->text();
+            CurrWord w_curr;
+            w_curr.diagID = ui->tableWidget->itemAt(0, i)->data(0).toString();
+            w_curr.count = ui->tableWidget->itemAt(2, i)->data(0).toInt();
+            v_curr.push_back(w_curr);
         }
     }
-    an.get_ds(text.toStdString());
-    for (int  i = 0; i < an.v_curr.size(); ++i)
-    {
-        qDebug() << QString::fromStdString(an.v_curr[i].diagID) << an.v_curr[i].count;
-    }
+//    qDebug() << ui->tableWidget->currentItem()->column() << ui->tableWidget->currentItem()->row();
+//    qDebug() << text;
+//    for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
+//    {
+//        int row = ui->tableWidget->currentRow();
+//        if (row == ui->tableWidget->row(ui->tableWidget->currentItem()))
+//        {
+
+//            text = ui->tableWidget->item(row,1)->text();
+//        }
+//    }
+//    an.get_ds(text.toStdString());
+//    for (int  i = 0; i < an.v_curr.size(); ++i)
+//    {
+//        qDebug() << QString::fromStdString(an.v_curr[i].diagID) << an.v_curr[i].count;
+//    }
 
 //  Формирование нового вектора (диагноз, кол-во повторений)
-//  w->setPlotParams(slovo,siagnozList)
-    //w->show();
+    w->setPlotParams(text,v_curr);
+    //w->setPlotParams(text,an.v_curr);
+    w->show();
 }
