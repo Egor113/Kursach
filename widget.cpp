@@ -29,7 +29,7 @@ void Widget::rndres()
     // Установки цвета:
     QPen pen;
     pen.setWidthF(1.5);//Толщина контура столбца
-    fossil->setName(QString::fromUtf8("Гистограмма")); // Легенда
+    fossil->setName(word); // Легенда
     pen.setColor(QColor(50, 50, 100));// Цвет контура столбца
     fossil->setPen(pen);
     // Цвет самого столбца, четвертый параметр - прозрачность
@@ -49,6 +49,8 @@ void Widget::rndres()
 //    customPlot->xAxis->setTickVector(ticks);
 //    customPlot->xAxis->setTickVectorLabels(labels);
 //    customPlot->xAxis->setSubTickCount(0);
+    customPlot->xAxis->setLabel(QString::fromUtf8("Диагнозы"));
+    //customPlot->xAxis->setupTickVectors();
     customPlot->xAxis->setTickLength(0, 4);
     customPlot->xAxis->grid()->setVisible(true);
     customPlot->xAxis->setRange(0, 8);
@@ -56,7 +58,7 @@ void Widget::rndres()
     // Установки значений оси Y:
     customPlot->yAxis->setRange(0, 12.1);
     customPlot->yAxis->setPadding(5);
-    customPlot->yAxis->setLabel(QString::fromUtf8("Значения элементов"));
+    customPlot->yAxis->setLabel(QString::fromUtf8("Частота повторения"));
     customPlot->yAxis->grid()->setSubGridVisible(true);
     QPen gridPen;
     gridPen.setStyle(Qt::SolidLine);
