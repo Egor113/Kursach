@@ -35,14 +35,8 @@ void MainWindow::on_btnFillChains_clicked()
     ui->tableWidget->setRowCount(an.v.size());
     for (int i = 0 ; i < an.v.size(); i++)
     {
-        //QString ds = QString::fromStdString(an.v[i].ds);
         QString word = QString::fromStdString(an.v[i].word);
         QString count = QString::number(an.v[i].count);
-        //QString ds = codec->toUnicode(an.v[i].ds.c_str());
-        //QString word = codec->toUnicode(an.v[i].word.c_str());
-        //QString count = QString::number(an.v[i].count);
-        //word = codec->toUnicode(an.v[i].word.c_str());
-        //ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(ds)));
         ui->tableWidget->setItem(i,0,new QTableWidgetItem(QString(word)));
         ui->tableWidget->setItem(i,1,new QTableWidgetItem(QString(count)));
     }
@@ -63,9 +57,6 @@ void MainWindow::on_btnFillWords_clicked()
     ui->tableWidget->setRowCount(an.v.size());
     for (int i = 0 ; i < an.v.size(); i++)
     {
-        //QString ds = codec->toUnicode(an.v[i].ds.c_str());
-        //QString word = codec->toUnicode(an.v[i].word.c_str());
-        //QString count = QString::number(an.v[i].count);
 
         QString ds = QString::fromStdString(an.v[i].ds);
         QString word = QString::fromStdString(an.v[i].word);
@@ -88,9 +79,17 @@ void MainWindow::on_btnFillWords_ds_clicked()
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
-    ui->tableWidget->setRowCount(1000);
-    //qDebug() << an.v_s.size() << "\n";
     int sum = 0;
+    for (int j=0; j<an.v_ds.size(); ++j)
+    {
+        Analysis::Words_ds wds = an.v_ds[j];
+        for (int i = 0 ; i < (wds.v.size()); i++)
+        {
+            sum ++;
+        }
+    }
+    ui->tableWidget->setRowCount(sum);
+    sum = 0;
     for (int j=0; j<an.v_ds.size(); ++j)
     {
         Analysis::Words_ds wds = an.v_ds[j];
@@ -104,20 +103,8 @@ void MainWindow::on_btnFillWords_ds_clicked()
             ui->tableWidget->setItem(sum,1,new QTableWidgetItem(QString(word)));
             ui->tableWidget->setItem(sum,2,new QTableWidgetItem(QString(count)));
             sum ++;
-            //qDebug() << QString::fromStdString(wds.diagID) << QString::fromStdString(wds.v[i].word) << wds.v[i].count;
         }
     }
-    /*
-    for (int i = 0; i < wds.v.size(); ++i)
-    {
-
-        QString ds = QString::fromStdString(wds.diagID);
-        QString word = QString::fromStdString(wds.v[i].word);
-        if (word != "")
-        {
-            qDebug() << QString::fromStdString(wds.diagID) << " " << word;
-        }
-   }*/
 
 }
 
@@ -160,40 +147,20 @@ void MainWindow::on_btnWidgetShow_clicked()
     if(w != NULL) delete w;
     w = new Widget();
     QVector <CurrWord> v_curr;
-    //Analysis an;
-    //an.openfile();
-    //an.pushwords_ds();
-    //an.push_ds();
-    //qDebug() << ui->tableWidget->currentRow();
     QString text;
     text = ui->tableWidget->currentItem()->data(0).toString();
+    //qDebug() << text;
     for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
     {
-        if (text.compare(ui->tableWidget->itemAt(1, i)->data(0).toString()) == 0)
+        //qDebug() << ui->tableWidget->item(i,1)->data(0).toString();
+        if (text.compare(ui->tableWidget->item(i, 1)->data(0).toString()) == 0)
         {
             CurrWord w_curr;
-            w_curr.diagID = ui->tableWidget->itemAt(0, i)->data(0).toString();
-            w_curr.count = ui->tableWidget->itemAt(2, i)->data(0).toInt();
+            w_curr.diagID = ui->tableWidget->item(i, 0)->data(0).toString();
+            w_curr.count = ui->tableWidget->item(i, 2)->data(0).toInt();
             v_curr.push_back(w_curr);
         }
     }
-//    qDebug() << ui->tableWidget->currentItem()->column() << ui->tableWidget->currentItem()->row();
-//    qDebug() << text;
-//    for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
-//    {
-//        int row = ui->tableWidget->currentRow();
-//        if (row == ui->tableWidget->row(ui->tableWidget->currentItem()))
-//        {
-
-//            text = ui->tableWidget->item(row,1)->text();
-//        }
-//    }
-//    an.get_ds(text.toStdString());
-//    for (int  i = 0; i < an.v_curr.size(); ++i)
-//    {
-//        qDebug() << QString::fromStdString(an.v_curr[i].diagID) << an.v_curr[i].count;
-//    }
-
 //  Формирование нового вектора (диагноз, кол-во повторений)
     w->setPlotParams(text,v_curr);
     //w->setPlotParams(text,an.v_curr);

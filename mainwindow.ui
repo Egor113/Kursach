@@ -60,7 +60,7 @@
        <item>
         <widget class="QPushButton" name="btnWidgetShow">
          <property name="text">
-          <string>Сделать анализ</string>
+          <string>Построить диаграмму</string>
          </property>
         </widget>
        </item>
