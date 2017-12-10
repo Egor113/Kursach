@@ -383,7 +383,7 @@ void Analysis::pushchains_ds()
     int i=0,
     count=0;// Счётчик символов разделения ';'
     bool find=false;
-    std::set<char>  ch,ch2;// Множество разделителей
+    std::set<char>  ch,ch2,ch3;// Множество разделителей
     std::string buff,// Строка-буфер для считывания строк из файла
 
     stroka=" ";//Строка для хранения текущего выражения
@@ -397,19 +397,22 @@ void Analysis::pushchains_ds()
     ch2.insert(')');
     ch2.insert('"');
 
+    ch3.insert('0');
+    ch3.insert('1');
+    ch3.insert('2');
+    ch3.insert('3');
+    ch3.insert('4');
+    ch3.insert('5');
+    ch3.insert('6');
+    ch3.insert('7');
+    ch3.insert('8');
+    ch3.insert('9');
+
     Words words;
     words.count = 0;
     words.word = "";
-
     v.push_back(words);//Добавление первого элемента
     //в массив слов
-
-
-    Words_ds words_ds;
-    words_ds.diagID = "";
-    words_ds.v = v;
-
-    v_ds.push_back(words_ds);
 
     getline(fileReader, buff); // считывания первой(служебной) строки
     //заголовков из файла
@@ -420,8 +423,6 @@ void Analysis::pushchains_ds()
         QString str2,str3,strlast;
         i=0;
         find = true;//Переменная, хранящая информацию,
-        QStringList list;
-        list = str.split(";");
         if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
@@ -430,31 +431,15 @@ void Analysis::pushchains_ds()
             int count2 = 0;
             for(int i = str3.indexOf(".")+1 ; i < str3.length(); i++)
             {
-                if (ch.find(str3[i].toLatin1())== ch.end())
+                if (ch3.find(str3[i].toLatin1())== ch3.end())
                 {
                     str2 = str3.remove(i,str3.length());
                     break;
                 }
             }
-            //if (str2[str2.length()-1]=='.') str2.erase(str2.length()-1,1);
             strlast = str2;
             QStringList list;
             list = str.split(";");
-            /*
-                    while (i!=str.length())//Цикл поиска нужного столбца в файле
-                    {
-                        if (str[i]==';')
-                        {
-                            count++;
-                        }
-                        i++;
-                        if (count==13)//Если найден нужный столбец
-                        {
-                            find=true;//То find=true
-                            count=0;
-                        }
-                    }
-                    */
             if (find)//Если найден нужный столбец
             {
                 //[abc]
@@ -489,32 +474,20 @@ void Analysis::pushchains_ds()
                                 else
                                 {
                                     match = false;
+//                                    Words_ds w_ds;
+//                                    //w_ds.v = v;
+//                                    w_ds.diagID = str2.toStdString();;
+//                                    v_ds.push_back(w_ds);
                                 }
                             }
                             i++;
-                        }
-                        bool match_ds = false;
-                        for (int j = 0; j<v_ds.size(); ++j)
-                        {
-                            if (QString::compare(str2, QString::fromStdString(v_ds[j].diagID)) == 0)
-                            {
-                                v_ds[j].v = v;
-                                match_ds = true;
-
-                            }
-                        }
-                        if (!match_ds)
-                        {
-                            Words_ds w_ds;
-                            //w_ds.v = v;
-                            w_ds.diagID = str2.toStdString();;
-                            v_ds.push_back(w_ds);
                         }
                         if (!match)//Если текущее слово встретилось в первый раз
                         {
                             Words w;
                             w.word  = buffstr;
                             w.count = 1;
+                            w.ds = str2.toStdString();
                             v.push_back(w);//То добавить его в массив слов
                         }
                     }
