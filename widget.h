@@ -7,7 +7,8 @@
 #include "qcustomplot.h"
 #include "analysis.h"
 
-struct CurrWord
+struct CurrWord// Структура для хранения диагноза
+               // и частоты
 {
     QString diagID;
     int count;
@@ -18,11 +19,10 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    //QVecor
     explicit Widget(QWidget *parent = 0);
-    QString word;
-    QVector<CurrWord> v;
-    void setPlotParams(QString str, QVector<CurrWord> vect);
+    QString word; //Строка для храения слова (выражения)
+    QVector<CurrWord> v; //Вектор для хранения диагноза и частоты
+    void setPlotParams(QString str, QVector<CurrWord> vect);// Процедура инициализации
 
 private:
     QCustomPlot *customPlot;

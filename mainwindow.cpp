@@ -22,18 +22,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btnFillChains_clicked()
 {
-    ui->tableWidget->clear();
-    ui->tableWidget->setColumnCount(2);
-    Analysis an;
-    an.openfile();
-    an.pushchains();
+    ui->tableWidget->clear();// Очистим содержимое таблицы
+    ui->tableWidget->setColumnCount(2);// Установим число колонок таблицы равным 2
+    Analysis an; // Создадим объект "Анализатор диагнозов"
+    an.openfile();// и вызовем его метод,
+    an.pushchains();//отвечающий за выделение выражений
     an.sort();
     //QTextCodec *codec = QTextCodec::codecForName("Windows-1251");
     QStringList header;
     header << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
     ui->tableWidget->setRowCount(an.v.size());
-    for (int i = 0 ; i < an.v.size(); i++)
+    for (int i = 0 ; i < an.v.size(); i++)// Заполним табицу в цикле
     {
         QString word = QString::fromStdString(an.v[i].word);
         QString count = QString::number(an.v[i].count);
@@ -75,7 +75,7 @@ void MainWindow::on_btnFillWords_ds_clicked()
     an.openfile();
     an.pushwords_ds();
     an.push_ds();
-    an.sort_ds();
+    //an.sort_ds();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);
@@ -116,7 +116,7 @@ void MainWindow::on_btnFillChains_ds_clicked()
     an.openfile();
     an.pushchains_ds();
     an.push_ds();
-    an.sort_ds();
+    //an.sort_ds();
     QStringList header;
     header << "Диагноз" << "Сиптомы" << "Частота повторения";
     ui->tableWidget->setHorizontalHeaderLabels(header);

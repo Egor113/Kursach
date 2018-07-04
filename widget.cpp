@@ -14,7 +14,6 @@ Widget::Widget(QWidget *parent) :
     res = new QPushButton(QString::fromUtf8("Показать или обновить гистограмму"),this);
     vbox->addWidget(res);
     setLayout(vbox);
-
     // Сигналы
     connect(res,SIGNAL(clicked()),this,SLOT(rndres()));
 }

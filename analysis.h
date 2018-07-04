@@ -38,13 +38,13 @@ public:
     void pushchains_ds();//Процедура добавления выражений в массив
     void pushwords(); //Процедура добавления слов в массив
     void pushchains();//Процедура добавления выражений в массив
-    void sort_ds();
-    void sort_ds_2();
-    void sort();
-    void sort_buff();
-    void openfile();
-    void push_ds();
-    void get_ds(std::string str);
+//  void sort_ds();
+    void sort_ds_2();//Процедура сортировки слов (выражений) в массиве по диагнозу
+    void sort();//Процедура сортировки слов (выражений) в массиве по частоте
+    void sort_buff();//Процедура сортировки буферного массива
+    void openfile();//Процедура открытия файла
+    void push_ds();//Процедура добавления диагноза в массив
+    //void get_ds(std::string str);
     //void print();
     Analysis();
 

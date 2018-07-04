@@ -13,12 +13,12 @@ bool Analysis:: sortCondition(Words w1,  Words w2)
     return w1.count > w2.count;
 }
 
-bool Analysis:: sortCondition_ds(Words_ds w1,  Words_ds w2)
-{
-    int comp = w1.diagID.compare(w2.diagID);
-    if (comp < 0) return true;
-    else return false;
-}
+//bool Analysis:: sortCondition_ds(Words_ds w1,  Words_ds w2)
+//{
+//    int comp = w1.diagID.compare(w2.diagID);
+//    if (comp < 0) return true;
+//    else return false;
+//}
 bool Analysis:: sortCondition_ds2(Words w1,  Words w2)
 {
     int comp = w1.ds.compare(w2.ds);
@@ -501,10 +501,10 @@ void Analysis::sort()
 {
     std::sort(v.begin(), v.end(), sortCondition);
 }
-void Analysis::sort_ds()
-{
-    std::sort(v_ds.begin(), v_ds.end(), sortCondition_ds);
-}
+//void Analysis::sort_ds()
+//{
+//    std::sort(v_ds.begin(), v_ds.end(), sortCondition_ds);
+//}
 void Analysis::sort_ds_2()
 {
     std::sort(v.begin(), v.end(), sortCondition_ds2);
@@ -538,29 +538,29 @@ void Analysis::openfile()
     fileReader.open(str.toStdString(), std::ios::in | std::ios::binary);
 
 }
-void Analysis::get_ds(std::string str)
-{
-////    for (int i = 0; i < v.size(); ++i)
+//void Analysis::get_ds(std::string str)
+//{
+//////    for (int i = 0; i < v.size(); ++i)
+//////    {
+//////        if (v[i].word == str)
+//////        {
+//////            CurrWord w_curr;
+//////            w_curr.diagID = v[i].ds;
+//////            w_curr.count = v[i].count;
+//////            v_curr.push_back(w_curr);
+//////        }
+//////    }
+////    for (int i = 0; i < v_ds.size(); ++i)
 ////    {
-////        if (v[i].word == str)
+////        for (int j = 0; j < v_ds[i].v.size(); ++j)
 ////        {
-////            CurrWord w_curr;
-////            w_curr.diagID = v[i].ds;
-////            w_curr.count = v[i].count;
-////            v_curr.push_back(w_curr);
+////            if (v_ds[i].v[j].word == str)
+////            {
+////                CurrWord w_curr;
+////                w_curr.diagID = v_ds[i].v[j].ds;
+////                w_curr.count = v_ds[i].v[j].count;
+////                v_curr.push_back(w_curr);
+////            }
 ////        }
 ////    }
-//    for (int i = 0; i < v_ds.size(); ++i)
-//    {
-//        for (int j = 0; j < v_ds[i].v.size(); ++j)
-//        {
-//            if (v_ds[i].v[j].word == str)
-//            {
-//                CurrWord w_curr;
-//                w_curr.diagID = v_ds[i].v[j].ds;
-//                w_curr.count = v_ds[i].v[j].count;
-//                v_curr.push_back(w_curr);
-//            }
-//        }
-//    }
-}
+//}
