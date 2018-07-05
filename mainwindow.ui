@@ -65,6 +65,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btnDiagram">
+         <property name="text">
+          <string>Диграмма 2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnExit">
          <property name="text">
           <string>Выход</string>

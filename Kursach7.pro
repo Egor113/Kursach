@@ -28,13 +28,16 @@ SOURCES += \
         mainwindow.cpp \
     analysis.cpp \
     qcustomplot.cpp \
-    widget.cpp
+    widget.cpp \
+    diagram.cpp
 
 HEADERS += \
         mainwindow.h \
     analysis.h \
     qcustomplot.h \
-    widget.h
+    widget.h \
+    diagram.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    diagram.ui

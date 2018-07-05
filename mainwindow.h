@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "analysis.h"
 #include "widget.h"
+#include "diagram.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +37,7 @@ private slots:
 private:
     Ui::MainWindow *ui; //Форма главного меню
     Widget *w; //Форма диаграммы
+    Diagram *diag;
 };
 
 #endif // MAINWINDOW_H
