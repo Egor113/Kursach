@@ -428,7 +428,7 @@ void Analysis::pushchains_ds()
         QString str2,str3,strlast;
         i=0;
         find = true;//Переменная, хранящая информацию,
-        if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
+        if ((str.indexOf('F')<str.length()) && (str.indexOf('F')>0)) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
             str2 = str.mid(str.indexOf('F'),7);
