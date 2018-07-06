@@ -89,9 +89,9 @@ void Analysis::pushwords()
             std::istringstream ist(str.toStdString());
             while(ist >> tmp)//Пока не закончится строка str
             {
-                if(tmp.length() >= 3)//Если длина слова меньше или равна 3
+                //qDebug() << QString::fromStdString(tmp) << " " << tmp.length()/2;
+                if(tmp.length()/2 >= 3)//Если длина слова меньше или равна 3
                 {
-
                     bool match=false;
                     int i = 0;
                     while ((!match) && (i<v.size()))//Пока слово не найдено и не достингнут
