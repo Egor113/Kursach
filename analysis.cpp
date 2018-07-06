@@ -184,8 +184,8 @@ void Analysis::pushwords_ds()
         find = true;//Переменная, хранящая информацию,
         bool end = false;
         //найден ли нужный столбец в файле или нет
-        //std::cout << str.find('F')<< std::endl;
-        if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
+        //qDebug() << "str.indexOf('F') " << str.indexOf('F');
+        if ((str.indexOf('F')<str.length()) && (str.indexOf('F')>0)) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
             str2 = str.mid(str.indexOf('F'),7);
