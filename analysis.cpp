@@ -460,6 +460,10 @@ void Analysis::pushchains_ds()
                     //QString s =
                     std::string buffstr;
                     buffstr = chains.at(j).toStdString();
+                    while (buffstr[0] == ' ')
+                    {
+                        buffstr.erase(0,1);
+                    }
                     if (buffstr.length()>=3 )//Если длина слова меньше или равна 3
                     {
 
