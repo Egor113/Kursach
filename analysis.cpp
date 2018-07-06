@@ -53,11 +53,11 @@ void Analysis::pushwords()
     ch2.insert('-');
     ch2.insert('NULL');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
 
-    v.push_back(words);//Добавление первого элемента
+    //v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
@@ -159,11 +159,11 @@ void Analysis::pushwords_ds()
     ch.insert('9');
     //ch.insert('.');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
 
-    v.push_back(words);//Добавление первого элемента
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
 //    Words_ds words_ds;
@@ -319,10 +319,10 @@ void Analysis::pushchains()
     ch2.insert(')');
     ch2.insert('"');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
-    v.push_back(words);//Добавление первого элемента
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
@@ -413,10 +413,10 @@ void Analysis::pushchains_ds()
     ch3.insert('8');
     ch3.insert('9');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
-    v.push_back(words);//Добавление первого элемента
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
