@@ -235,7 +235,7 @@ void Analysis::pushwords_ds()
                 std::istringstream ist(str.toStdString());
                 while(ist >> tmp)//Пока не закончится строка str
                 {
-                    if(tmp.length() >= 3)//Если длина слова меньше или равна 3
+                    if(tmp.length()/2 >= 3)//Если длина слова меньше или равна 3
                     {
                         if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
                         if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
