@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    diag = new Diagram();
     w = NULL;
     connect(ui->btnExit, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui->btnDiagram, SIGNAL(clicked()), diag, SLOT(show()));
 }
 
 MainWindow::~MainWindow()

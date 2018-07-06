@@ -20,6 +20,7 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::rndres()
 {
+    int vmax = v[0].count;
 
     fossil = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 
@@ -39,7 +40,9 @@ void Widget::rndres()
     QVector<QString> labels;
     for(int i = 0; i < v.size(); ++i) {
         ticks << i+1;
-        labels << v[i].diagID;
+        if (vmax < v[i].count) vmax = v[i].count;
+        //qDebug() << "vmax = " << vmax;
+        customPlot->xAxis->tickVectorLabels() << v[i].diagID;
     }
 //    ticks << 1 << 2 << 3 << 4 << 5 << 6 << 7;
 //    labels << "1" << "2" << "3" << "4" << "5" << "6" << "7";
@@ -47,15 +50,16 @@ void Widget::rndres()
 //    customPlot->xAxis->setAutoTickLabels(false);
 //    customPlot->xAxis->setTickVector(ticks);
 //    customPlot->xAxis->setTickVectorLabels(labels);
+//      customPlot->xAxis->setupTickVectors();
 //    customPlot->xAxis->setSubTickCount(0);
     customPlot->xAxis->setLabel(QString::fromUtf8("Диагнозы"));
     //customPlot->xAxis->setupTickVectors();
     customPlot->xAxis->setTickLength(0, 4);
     customPlot->xAxis->grid()->setVisible(true);
-    customPlot->xAxis->setRange(0, 8);
+    customPlot->xAxis->setRange(0, v.size()+1);
 
     // Установки значений оси Y:
-    customPlot->yAxis->setRange(0, 12.1);
+    customPlot->yAxis->setRange(0, vmax+1);
     customPlot->yAxis->setPadding(5);
     customPlot->yAxis->setLabel(QString::fromUtf8("Частота повторения"));
     customPlot->yAxis->grid()->setSubGridVisible(true);
