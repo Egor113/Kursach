@@ -53,11 +53,11 @@ void Analysis::pushwords()
     ch2.insert('-');
     ch2.insert('NULL');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
 
-    v.push_back(words);//Добавление первого элемента
+    //v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
@@ -89,9 +89,9 @@ void Analysis::pushwords()
             std::istringstream ist(str.toStdString());
             while(ist >> tmp)//Пока не закончится строка str
             {
-                if(tmp.length() >= 3)//Если длина слова меньше или равна 3
+                //qDebug() << QString::fromStdString(tmp) << " " << tmp.length()/2;
+                if(tmp.length()/2 >= 3)//Если длина слова меньше или равна 3
                 {
-
                     bool match=false;
                     int i = 0;
                     while ((!match) && (i<v.size()))//Пока слово не найдено и не достингнут
@@ -159,11 +159,11 @@ void Analysis::pushwords_ds()
     ch.insert('9');
     //ch.insert('.');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
 
-    v.push_back(words);//Добавление первого элемента
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
 //    Words_ds words_ds;
@@ -184,8 +184,8 @@ void Analysis::pushwords_ds()
         find = true;//Переменная, хранящая информацию,
         bool end = false;
         //найден ли нужный столбец в файле или нет
-        //std::cout << str.find('F')<< std::endl;
-        if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
+        //qDebug() << "str.indexOf('F') " << str.indexOf('F');
+        if ((str.indexOf('F')<str.length()) && (str.indexOf('F')>0)) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
             str2 = str.mid(str.indexOf('F'),7);
@@ -235,7 +235,7 @@ void Analysis::pushwords_ds()
                 std::istringstream ist(str.toStdString());
                 while(ist >> tmp)//Пока не закончится строка str
                 {
-                    if(tmp.length() >= 3)//Если длина слова меньше или равна 3
+                    if(tmp.length()/2 >= 3)//Если длина слова меньше или равна 3
                     {
                         if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
                         if (ch2.find(tmp[tmp.length()-1])!= ch2.end()) tmp.erase(tmp.length()-1,1);
@@ -319,10 +319,10 @@ void Analysis::pushchains()
     ch2.insert(')');
     ch2.insert('"');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
-    v.push_back(words);//Добавление первого элемента
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
@@ -350,6 +350,11 @@ void Analysis::pushchains()
                 //QString s =
                 std::string buffstr;
                 buffstr = chains.at(j).toStdString();
+                while (buffstr[0] == ' ')
+                {
+                    buffstr.erase(0,1);
+                }
+                //if (buffstr[0] == ' ') buffstr.erase(0,1);
                 if (buffstr.length()>=3 )//Если длина слова меньше или равна 3
                 {
 
@@ -408,10 +413,10 @@ void Analysis::pushchains_ds()
     ch3.insert('8');
     ch3.insert('9');
 
-    Words words;
-    words.count = 0;
-    words.word = "";
-    v.push_back(words);//Добавление первого элемента
+//    Words words;
+//    words.count = 0;
+//    words.word = "";
+//    v.push_back(words);//Добавление первого элемента
     //в массив слов
 
     getline(fileReader, buff); // считывания первой(служебной) строки
@@ -423,7 +428,7 @@ void Analysis::pushchains_ds()
         QString str2,str3,strlast;
         i=0;
         find = true;//Переменная, хранящая информацию,
-        if (str.indexOf('F')<str.length()) //Если в строке есть диагоноз
+        if ((str.indexOf('F')<str.length()) && (str.indexOf('F')>0)) //Если в строке есть диагоноз
         {
             //То выделяем его в строку str2
             str2 = str.mid(str.indexOf('F'),7);
@@ -455,6 +460,10 @@ void Analysis::pushchains_ds()
                     //QString s =
                     std::string buffstr;
                     buffstr = chains.at(j).toStdString();
+                    while (buffstr[0] == ' ')
+                    {
+                        buffstr.erase(0,1);
+                    }
                     if (buffstr.length()>=3 )//Если длина слова меньше или равна 3
                     {
 
