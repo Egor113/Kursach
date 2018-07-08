@@ -5,6 +5,7 @@
 #include "analysis.h"
 #include "widget.h"
 #include "diagram.h"
+#include "gaus.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,10 +35,13 @@ private slots:
 
     void on_btnWidgetShow_clicked();//Процедура отрисовки диаграммы
 
+    void on_btnDiagram_clicked();
+
 private:
     Ui::MainWindow *ui; //Форма главного меню
     Widget *w; //Форма диаграммы
     Diagram *diag;
+    Gaus *gaus;
 };
 
 #endif // MAINWINDOW_H

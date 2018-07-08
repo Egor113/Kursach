@@ -3,6 +3,7 @@
 #include <QTextCodec> // подключение класса кодека текста
 #include <QDebug>
 #include "widget.h"
+#include "gaus.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     diag = new Diagram();
     w = NULL;
+    gaus = NULL;
     connect(ui->btnExit, SIGNAL(clicked()), this, SLOT(close()));
     connect(ui->btnDiagram, SIGNAL(clicked()), diag, SLOT(show()));
 }
@@ -174,4 +176,29 @@ void MainWindow::on_btnWidgetShow_clicked()
     w->setPlotParams(text,v_curr);
     //w->setPlotParams(text,an.v_curr);
     w->show();
+}
+
+void MainWindow::on_btnDiagram_clicked()
+{
+    if(gaus != NULL) delete gaus;
+    gaus = new Gaus();
+    QVector <CurrWord> v_curr;
+    QString text;
+    text = ui->tableWidget->currentItem()->data(0).toString();
+    //qDebug() << text;
+    for (int i = 0 ; i < ui->tableWidget->rowCount(); i++)
+    {
+        //qDebug() << ui->tableWidget->item(i,1)->data(0).toString();
+        if (text.compare(ui->tableWidget->item(i, 1)->data(0).toString()) == 0)
+        {
+            CurrWord w_curr;
+            w_curr.diagID = ui->tableWidget->item(i, 0)->data(0).toString();
+            w_curr.count = ui->tableWidget->item(i, 2)->data(0).toInt();
+            v_curr.push_back(w_curr);
+        }
+    }
+//  Формирование нового вектора (диагноз, кол-во повторений)
+    gaus->setPlotParams(text,v_curr);
+    //w->setPlotParams(text,an.v_curr);
+    gaus->show();
 }
